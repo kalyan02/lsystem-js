@@ -1,0 +1,74 @@
+*, html {
+	padding: 0px;
+	margin: 0px;
+}
+body {
+	padding: 10px;
+	font-family: Arial, Verdana, Helvetica;
+	font-size: 12px;
+}
+h1 {
+	font-size: 20px;
+}
+p {
+	margin-bottom: 10px;
+}
+#header {
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+}
+#examples ul {
+	list-style-type: none;
+	margin-left: 10px;
+}
+#examples li {
+	display: inline;
+	margin-right: 10px;
+}
+#content {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+#controlBox label {
+	font-weight: bold;
+	margin-left: 10px;
+	float: left;
+	width: 100px;
+}
+#controlBox input, #controlBox textarea {
+	width: 400px;
+	margin-bottom: 5px;
+}
+#controlBox button {
+	margin-top: 10px;
+	width: 60px;
+}
+#controlBox .tip {
+	margin-left: 30px;
+	color: #666;
+	font-size: 11px;
+}
+#result {
+	margin-left: 10px;
+	width: 50%;
+	height: 60px;
+}
+#footer {
+	margin-top: 30px;
+	color: #999;
+	border-top: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+}
+.panel {
+	border: 1px solid #eee;
+	background: #fbfbfb;
+	padding: 7px;
+	margin-bottom: 20px;
+}
+.panel h3 {
+	font-family: 'Courier';
+	font-size: 16px;
+	margin-bottom: 7px;
+}

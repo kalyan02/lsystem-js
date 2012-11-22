@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>LSystem Fractal Plant Demo</title>
+	<script src="lib/jquery-1.4.4.min.js"></script>
+	<script src="lib/json.js"></script>
+	<script src="lib/lSystem.LSystem.js"></script>
+	<script src="lib/lSystem.LRunHandler.js" type="text/javascript"></script>
+	<style type="text/css">
+	body { font:14px 'Times new roman' }
+	h2 { font-weight:normal; }
+	canvas { border:1px solid black; }
+	#log { width:800px; }
+	</style>
+</head>
+<body>
+<h2>LSystem Fractal Plant demo</h2>
+<canvas id="canvas" width='800' height='600'></canvas><br />
+<textarea id="log" name="" rows="10" cols="30"></textarea>
+
+<script type="text/javascript">
+// New lSystem - fractal/tree
+frac = new lSystem.LSystem ( 'X', {'X' : 'F-[[X]+X]+F[+FX]-X', 'F' : 'FF'} );
+
+// Generate
+$('#log').html( frac.generate(5) );
+
+// get context
+ctx = document.getElementById('canvas').getContext('2d');
+
+/**
+ * Fractal RunHandler([init defaults])
+ */
+hfrac = new lSystem.LRunHandler({
+	a:40,	// angle
+	x:10,	// x
+	y:10, 	// y
+	r:5,	// radius
+	raMap:{},	// radius-angle map/cache 
+	stack:[]  	// stack for tree
+});
+
+/**
+ * Specify conditions. State functions
+ */
+hfrac.on( 'F', function() {
+	ctx.beginPath();
+	ctx.moveTo( this.x, this.y );
+	// cache angle values
+	// If the angles are repeated(highly likely),
+	// it will reuse existing calculations
+	// to preserve the decimal approximation.
+	hash = this.r + '#' + this.a;
+	if( typeof this.raMap[hash] == 'undefined' ) {
+		this.raMap[hash] = {
+			x : Math.round( this.r * Math.cos( this.a * Math.PI/180 ) ),
+			y : Math.round( this.r * Math.sin( this.a * Math.PI/180 ) )
+		};
+	}
+	this.x += this.raMap[hash].x;
+	this.y += this.raMap[hash].y;
+	ctx.lineTo( this.x, this.y );
+	ctx.stroke();
+});
+hfrac.on( '+', function() { this.a += 25; });
+hfrac.on( '-', function() { this.a -= 25; });
+hfrac.on( '[', function() { this.stack.push({ x:this.x, y:this.y, a:this.a }); });
+hfrac.on( ']', function() {
+	var ls = this.stack.pop();
+	this.x = ls.x;
+	this.y = ls.y;
+	this.a = ls.a;
+});
+
+/**
+ * frac.run(arg) -> arg is a function(token) or
+ *				 -> arg is an LRunHandler() Instance
+ */
+frac.run(hfrac);
+
+
+/**
+ * General implementation. It works too.
+ */
+/*
+$(document).ready(function(){
+frac.run( function( token ) {
+	if( typeof this.count == 'undefined' ) {
+		this.count = 0;
+		this.ctx = document.getElementById("canvas").getContext('2d');
+		this.ctx.lineWidth = 1;
+		this.stack = [];
+		this.state = { x:10, y:10, a:30 };
+		this.raMap = {};
+	}
+	else
+		this.count++;
+
+	r = 8;
+
+	if( token == 'F' || token == 'A' || token == 'B' ) {
+		this.ctx.beginPath();
+		this.ctx.moveTo( this.state.x, this.state.y );		
+
+		hash = r + '#' + this.state.a;
+		if( typeof this.raMap[hash] == 'undefined' ) {
+			this.raMap[hash] = {
+				x : Math.round( r * Math.cos( this.state.a * Math.PI/180 ) ),
+				y : Math.round( r * Math.sin( this.state.a * Math.PI/180 ) )
+			};
+		}
+		this.state.x += this.raMap[hash].x;
+		this.state.y += this.raMap[hash].y;
+		this.ctx.lineTo( this.state.x, this.state.y );
+		this.ctx.stroke();
+	}
+	if( token == '+' ) {
+		this.state.a += 25;
+	}
+	if( token == '-' ) {
+		this.state.a += -25;
+	}
+	if( token == '[' ) {
+		this.stack.push( { x : this.state.x, y : this.state.y, a : this.state.a } );
+	}
+	if( token == ']' ) {
+		if( this.stack.length > 0 ) {
+			this.state = this.stack.pop();
+		}
+	}
+});
+});
+//*/
+
+</script>	
+</body>
+</html>

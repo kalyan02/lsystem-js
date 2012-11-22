@@ -1,0 +1,64 @@
+<html>
+<head>
+	<title>L-System Rules Parser</title>
+	<meta name="author" content="cmdr2" />
+	<link rel="stylesheet" type="text/css" href="media/parser-tool.css" />
+
+	<script src="lib/jquery-1.4.4.min.js"></script>
+	<script src="lib/json.js"></script>
+
+	<script src="lib/lSystem.LSystem.js"></script>
+	<script src="lib/lSystem.ExampleFactory.js"></script>
+	<script src="scripts/parser-tool.js"></script>
+</head>
+<body>
+	<div id="header">
+		<h1>L-System Rules Parser</h1>
+	</div>
+	<div id="content">
+		<p>This tool provides an interface to the <code>lsystem-js</code> library, allowing you to
+			play with rules and combinations. To read up about L-Systems, 
+			<a href="http://en.wikipedia.org/wiki/L_Systems">http://en.wikipedia.org/wiki/L_Systems</a>
+			is a good place to start.</p>
+			
+		<p>Some example configurations are provided. Click the name of the desired example below
+			to load the configuration, and click on the "Parse" button</p>
+			
+		<div id="examples" class="panel">
+			<h3>Examples: </h3>
+			<ul>
+				<li><a href="#" id="algae">Algae</a></li>
+				<li><a href="#" id="fib">Fibonacci</a></li>
+				<li><a href="#" id="koch">Koch Curve</a></li>
+				<li><a href="#" id="sierpinski">Sierpinski Triangle</a></li>
+				<li><a href="#" id="dragon">Dragon Curve</a></li>
+				<li><a href="#" id="plant">Fractal Plant</a></li>
+			</ul>
+		</div>
+		<div id="controlBox" class="panel">
+			<h3>Configuration: </h3>
+			<label for="initialString">Initial: </label>
+			<input id="initialString" />
+			<span class="tip">// the initial state to start the L-System, for e.g.: A</span><br/>
+			
+			<label for="rules">Rules: </label>
+			<textarea id="rules"></textarea>
+			<span class="tip">// the set of transform rules applied at each generation in JSON object format, for e.g.: {"A": "AB", "B": "A"}</span><br/>
+			
+			<label for="generations">Generations: </label>
+			<input id="generations" />
+			<span class="tip">// the number of generations to run the transformations, for e.g.: 3</span><br/>
+			
+			<button id="parse">Parse</button>
+		</div>
+		
+		<div id="resultBox" class="panel">
+			<h3>Result: </h3>
+			<textarea id="result"></textarea>
+		</div>
+	</div>
+	<div id="footer">
+		by <a href="http://flareup.org/~cmdr2/">cmdr2</a>. Feel free to play with the code.
+	</div>
+</body>
+</html>

@@ -4,7 +4,8 @@ L-System JS
 An L-System library written in Javascript
 
 Links
-Demo : http://kalyanchakravarthy.net/projects/lsystem/0.2/fractal-plant-demo.html
+Demo : https://kalyan02.github.io/lsystem-js/fractal-plant-demo.html
+Parser: https://kalyan02.github.io/lsystem-js/parser-tool.html
 
 Authors: @cmdr2 & @kalyan02
 
